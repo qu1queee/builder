@@ -20,8 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-set -euo pipefail
+set -euxo pipefail
 
-curl -fsL https://git.io/JTYKj | bash
+mkdir ${GITHUB_WORKSPACE}/bin
 
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo curl --progress-bar --location https://github.com/homeport/build-load/releases/download/v0.5.0/build-load_0.5.0_linux_amd64.tar.gz  | tar -xzf - -C ${GITHUB_WORKSPACE}/bin build-load
+
+sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"

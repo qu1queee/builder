@@ -28,7 +28,7 @@ kubectl \
   --docker-username=$REGISTRY_USERNAME \
   --docker-password=$REGISTRY_PASSWORD
 
-build-load \
+${GITHUB_WORKSPACE}/bin/build-load \
   buildruns \
   --cluster-build-strategy=$STRATEGY \
   --source-url=$SOURCE_URL \

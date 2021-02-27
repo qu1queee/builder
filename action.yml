@@ -47,7 +47,7 @@ runs:
       shell: bash
     - run: ${{ github.action_path }}/scripts/install_controllers.sh
       shell: bash
-    - run: kubectl apply -f ${{ github.action_path }}/scripts/install_strategies.sh
+    - run: kubectl apply -f ${{ github.action_path }}/strategies/
       shell: bash
     - run: ${{ github.action_path }}/scripts/build.sh
       shell: bash
