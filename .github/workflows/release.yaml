@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Desired tag'
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create kind cluster
+      uses: helm/kind-action@v1.1.0
+      with:
+        version: v0.10.0
+        node_image: kindest/node:${{ matrix.kubernetes }}
+        cluster_name: kind
+        wait: 120s
+    - name: Verify kind cluster
+      run: |
+        echo "# Using KinD context..."
+        kubectl config use-context "kind-kind"
+        echo "# KinD nodes:"
+        kubectl get nodes
+    - name: Build image from git
+      uses: homeport/builder@v1
+      with:
+         strategy: 'kaniko'
+         source-url: https://github.com/qu1queee/taxi
+         output-image: docker.io/eeeoo/poseidonetaxi:v5.0.0
+         registry-username: ${{ secrets.REGISTRY_MY_USERNAME }}
+         registry-password: ${{ secrets.REGISTRY_MY_PASSWORD }}
+         registry-password: 'https://index.docker.io/v1/'
+
+
+
